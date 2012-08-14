@@ -128,6 +128,5 @@ void loop() {
     }
   }
 
-//  sendmsg("YURI DANILCHENKO IS A FAG") ;
-//  delay(3000) ;
+  delay(300) ;
 }

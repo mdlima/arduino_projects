@@ -21,15 +21,26 @@ unsigned int timeUpDown[128];
 /* Symbols are 1 for whole, -1 for dotted whole, 2 for half, */
 /* -2 for dotted half, 4 for quarter, -4 for dotted quarter, etc. */
 
+const char song[] = {	64,4,64,4,65,4,67,4,		67,4,65,4,64,4,62,4,
+			60,4,60,4,62,4,64,4,		64,-4,62,8,62,2,
+			64,4,64,4,65,4,67,4,		67,4,65,4,64,4,62,4,
+			60,4,60,4,62,4,64,4,		62,-4,60,8,60,2,
+			62,4,62,4,64,4,60,4,		62,4,64,8,65,8,64,4,60,4,
+			62,4,64,8,65,8,64,4,62,4,	60,4,62,4,55,2,
+			64,4,64,4,65,4,67,4,		67,4,65,4,64,4,62,4,
+			60,4,60,4,62,4,64,4,		62,-4,60,8,60,2};
+
 // Happy Birthday
+/*
 const char song[] = {      60,4,60,4, 62,2,60,2,65,2, 64,1,60,4,60,4, 62,2,60,2,67,2, 
                       65,1,60,4,60,4, 72,2,69,2,65,2, 64,2,62,2,70,4,70,4, 69,2,65,2,67,2, 65,1
 };
+*/
 
 int period, i;
 unsigned int timeUp, beat;
 byte statePin = LOW;
-const byte BPM = 140;
+const byte BPM = 160;
 const float TEMPO_SECONDS = 60.0 / BPM; 
 const unsigned int MAXCOUNT = sizeof(song) / 2;
 

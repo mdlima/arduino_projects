@@ -27,6 +27,8 @@ void dash()
   digitalWrite(LEDpin, HIGH);
   // Audio output
   tone(speakerPin, toneNote, DASHLEN);
+  // Serial output
+  Serial.print("-");
       
   delay(DASHLEN);
   digitalWrite(LEDpin, LOW);
@@ -40,6 +42,8 @@ void dit()
   digitalWrite(LEDpin, HIGH);
   // Audio output
   tone(speakerPin, toneNote, DOTLEN);
+  // Serial output
+  Serial.print(".");
   
   delay(DOTLEN);
   digitalWrite(LEDpin, LOW) ;
@@ -61,15 +65,15 @@ void send(char c)
     if (morsetab[i].c == c) 
     {
       unsigned char p = morsetab[i].pat;
-      Serial.print(morsetab[i].strMorse);
-      Serial.print(' ');
+      Serial.print(morsetab[i].c);
       while (p != 1) {
           if (p & 1)
-            dash() ;
+            dash();
           else
-            dit() ;
-          p = p / 2 ;
+            dit();
+          p = p / 2;
       }
+//      Serial.print(' ');
       delay(2*DOTLEN) ;
       return ;
     }

@@ -77,7 +77,7 @@ uint16_t unRotationCenter = ROTATION_CENTER; // the gyro I am using outputs a ce
 //////////////////////////////////////////////////////////////////
 // DIGITAL PINS
 //////////////////////////////////////////////////////////////////
-#define PROGRAM_PIN 11
+#define PROGRAM_PIN 10
 #define INFORMATION_INDICATOR_PIN 7
 #define ERROR_INDICATOR_PIN 8
 #define THROTTLE_IN_PIN 2
@@ -214,16 +214,16 @@ void loop()
     // shared copies may contain junk. Luckily we have our local copies to work with :-)
   }
 
-  if(false == digitalRead(PROGRAM_PIN) && gMode != MODE_FULL_PROGRAM)
+  if(digitalRead(PROGRAM_PIN) && gMode != MODE_FULL_PROGRAM)
   {
     Serial.println("MODE_QUICK_PROGRAM");
-    
+
     // give 10 seconds to program
     gMode = MODE_QUICK_PROGRAM;
 
     // turn indicators off for QUICK PROGRAM mode
-    digitalWrite(INFORMATION_INDICATOR_PIN,LOW);    
-    digitalWrite(ERROR_INDICATOR_PIN,LOW);    
+    digitalWrite(INFORMATION_INDICATOR_PIN,LOW);
+    digitalWrite(ERROR_INDICATOR_PIN,LOW);
 
     // wait two seconds and test program pin again
     // if pin if still held low, enter full program mode
@@ -231,8 +231,9 @@ void loop()
     // mode with new sensitivity readings.
     delay(2000);
 
-    if(false == digitalRead(PROGRAM_PIN))
+    if(digitalRead(PROGRAM_PIN))
     {
+      Serial.println("MODE_FULL_PROGRAM");
       gMode = MODE_FULL_PROGRAM;
       ulProgramModeExitTime = ulMillis + 10000;
 
@@ -516,6 +517,7 @@ uint8_t readSettingsFromEEPROM()
     unSteeringMin = RC_MIN;
     bError = true;
   }
+  Serial.print("SteeringMin: ");
   Serial.println(unSteeringMin);
 
   unSteeringMax = readChannelSetting(EEPROM_INDEX_STEERING_MAX);
@@ -524,6 +526,7 @@ uint8_t readSettingsFromEEPROM()
     unSteeringMax = RC_MAX;
     bError = true;
   }
+  Serial.print("SteeringMax: ");
   Serial.println(unSteeringMax);
 
   unSteeringCenter = readChannelSetting(EEPROM_INDEX_STEERING_CENTER);
@@ -532,6 +535,7 @@ uint8_t readSettingsFromEEPROM()
     unSteeringCenter = RC_NEUTRAL;
     bError = true;
   }
+  Serial.print("SteeringCenter: ");
   Serial.println(unSteeringCenter);
 
   unThrottleMin = readChannelSetting(EEPROM_INDEX_THROTTLE_MIN);
@@ -540,6 +544,7 @@ uint8_t readSettingsFromEEPROM()
     unThrottleMin = RC_MIN;
     bError = true;
   }
+  Serial.print("ThrottleMin: ");
   Serial.println(unThrottleMin);
 
   unThrottleMax = readChannelSetting(EEPROM_INDEX_THROTTLE_MAX);
@@ -548,6 +553,7 @@ uint8_t readSettingsFromEEPROM()
     unThrottleMax = RC_MAX;
     bError = true;
   }
+  Serial.print("ThrottleMax: ");
   Serial.println(unThrottleMax);
 
   unThrottleCenter = readChannelSetting(EEPROM_INDEX_THROTTLE_CENTER);
@@ -556,9 +562,11 @@ uint8_t readSettingsFromEEPROM()
     unThrottleCenter = RC_NEUTRAL;
     bError = true;
   }
+  Serial.print("ThrottleCenter: ");
   Serial.println(unThrottleCenter);
 
   unRotationCenter = readChannelSetting(EEPROM_INDEX_ROTATION_CENTER);
+  Serial.print("RotationCenter: ");
   Serial.println(unRotationCenter);
 
   // ideally we would have 512 as the center
@@ -582,13 +590,26 @@ void writeSettingsToEEPROM()
 
   writeChannelSetting(EEPROM_INDEX_ROTATION_CENTER,unRotationCenter);
 
+  Serial.print("SteeringMin: ");
   Serial.println(unSteeringMin);
+
+  Serial.print("SteeringMax: ");
   Serial.println(unSteeringMax);
+
+  Serial.print("SteeringCenter: ");
   Serial.println(unSteeringCenter);
+
+  Serial.print("ThrottleMin: ");
   Serial.println(unThrottleMin);
+
+  Serial.print("ThrottleMax: ");
   Serial.println(unThrottleMax);
+
+  Serial.print("ThrottleCenter: ");
   Serial.println(unThrottleCenter);
 
+
+  Serial.print("RotationCenter: ");
   Serial.println(unRotationCenter);
 }
 
@@ -613,11 +634,13 @@ void writeChannelSetting(uint8_t nIndex,uint16_t unSetting)
 // These adjustments are read at startup and anytime that the program button
 // is pressed including QUICK_PROGRAM and FULL_PROGRAM 
 //
-// Note the 1-1023 range for sensitivity and 1-100 range for decay 1 = 500/(50*1) per sec = 10 seconds. 100 = 500/(50*100) per sec = 1 seconds
+// Note the 1-1023 range for sensitivity and 1-100 range for decay 1 = 500/(50*1) per sec = 10 seconds. 100 = 500/(50*100) per sec = 0.1 seconds
 // 
 /////////////////////////////////////////////////////////////////////////////
 void readAnalogSettings()
 {
+  return;
+
   // dummy read to settle ADC
   analogRead(THROTTLE_SENSITIVITY_PIN);
   unThrottleSensitivity  = constrain(analogRead(THROTTLE_SENSITIVITY_PIN),1,1023);  
@@ -695,10 +718,12 @@ void readAnalogSettings()
     unThrottleDecay = 1;
   }
 
+  Serial.print("ThrottleDecay: ");
   Serial.println(unThrottleDecay);
 
   // dummy read to settle ADC
   analogRead(STEERING_DECAY_PIN);
   unSteeringDecay = constrain(analogRead(STEERING_DECAY_PIN),1,500);
 }
+
 

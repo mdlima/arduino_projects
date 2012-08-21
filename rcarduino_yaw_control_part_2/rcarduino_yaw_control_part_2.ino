@@ -77,13 +77,13 @@ uint16_t unRotationCenter = ROTATION_CENTER; // the gyro I am using outputs a ce
 //////////////////////////////////////////////////////////////////
 // DIGITAL PINS
 //////////////////////////////////////////////////////////////////
-#define PROGRAM_PIN 9
-#define INFORMATION_INDICATOR_PIN 5
-#define ERROR_INDICATOR_PIN 6
+#define PROGRAM_PIN 11
+#define INFORMATION_INDICATOR_PIN 7
+#define ERROR_INDICATOR_PIN 8
 #define THROTTLE_IN_PIN 2
 #define STEERING_IN_PIN 3
-#define THROTTLE_OUT_PIN 8
-#define STEERING_OUT_PIN 7
+#define THROTTLE_OUT_PIN 4
+#define STEERING_OUT_PIN 5
 
 // These bit flags are set in bUpdateFlagsShared to indicate which
 // channels have new signals
@@ -140,7 +140,7 @@ uint16_t unSteeringDecay = 0;
 
 void setup()
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
 
   pinMode(PROGRAM_PIN,INPUT);
   pinMode(INFORMATION_INDICATOR_PIN,OUTPUT);
@@ -156,6 +156,7 @@ void setup()
 
   if(false == readSettingsFromEEPROM())
   {
+    Serial.println("MODE_FORCEPROGRAM");
     gMode = MODE_FORCEPROGRAM;
   }
 
@@ -215,6 +216,8 @@ void loop()
 
   if(false == digitalRead(PROGRAM_PIN) && gMode != MODE_FULL_PROGRAM)
   {
+    Serial.println("MODE_QUICK_PROGRAM");
+    
     // give 10 seconds to program
     gMode = MODE_QUICK_PROGRAM;
 
@@ -610,8 +613,7 @@ void writeChannelSetting(uint8_t nIndex,uint16_t unSetting)
 // These adjustments are read at startup and anytime that the program button
 // is pressed including QUICK_PROGRAM and FULL_PROGRAM 
 //
-// Note the 1-1023 range for sensitivity and 1-100 range for decay 1 = 500/(50*1) per sec = 10 seconds. 100 = 500/(50*100) per sec = 
-1 seconds
+// Note the 1-1023 range for sensitivity and 1-100 range for decay 1 = 500/(50*1) per sec = 10 seconds. 100 = 500/(50*100) per sec = 1 seconds
 // 
 /////////////////////////////////////////////////////////////////////////////
 void readAnalogSettings()

@@ -40,18 +40,18 @@ void loop() {
     timer = millis();
     readReceiver();
     
-    Serial.print("Throttle: ");
-    Serial.print(receiverCommand[THROTTLE]);
-    Serial.print(" Yaw: ");
-    Serial.print(receiverCommand[YAW]);
-    Serial.print(" Roll: ");
-    Serial.print(receiverCommand[XAXIS]);
-    Serial.print(" Pitch: ");
-    Serial.print(receiverCommand[YAXIS]);
-    Serial.print(" Mode: ");
-    Serial.print(receiverCommand[ZAXIS]);
-    Serial.print(" Aux: ");
-    Serial.print(receiverCommand[AUX]);
-    Serial.println();
+    // Serial.print(" Roll: ");
+    // Serial.print(receiverCommand[XAXIS]);
+    // Serial.print(" Pitch: ");
+    // Serial.print(receiverCommand[YAXIS]);
+    // Serial.print(" Yaw: ");
+    // Serial.print(receiverCommand[ZAXIS]);
+    // Serial.print("Throttle: ");
+    // Serial.print(receiverCommand[THROTTLE]);
+    // Serial.print(" Mode: ");
+    // Serial.print(receiverCommand[MODE]);
+    // Serial.print(" Aux: ");
+    // Serial.print(receiverCommand[AUX1]);
+    // Serial.println();
   }
 }

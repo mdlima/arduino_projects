@@ -102,14 +102,20 @@ static void measurePulseWidthISR(uint8_t port, uint8_t pinoffset) {
         time = currentTime - pinData[pin].fallTime;
         pinData[pin].riseTime = currentTime;
         if ((time >= MINOFFWIDTH) && (time <= MAXOFFWIDTH))
+				{
           pinData[pin].edge = RISING_EDGE;
+				}
         else
-          pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
+				{
+	          pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
+						Serial.println("IR");
+				}					
       }
       else {
         time = currentTime - pinData[pin].riseTime;
         pinData[pin].fallTime = currentTime;
-        if ((time >= MINONWIDTH) && (time <= MAXONWIDTH) && (pinData[pin].edge == RISING_EDGE)) {
+        if ((time >= MINONWIDTH) && (time <= MAXONWIDTH) && (pinData[pin].edge == RISING_EDGE))
+				{
           pinData[pin].lastGoodWidth = time;
           pinData[pin].edge = FALLING_EDGE;
         }

@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Math
+END
+AQMath.h
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Math/AQMath.h
+END
+FourtOrderFilter.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Math/FourtOrderFilter.h
+END
+AQMath.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Math/AQMath.cpp
+END

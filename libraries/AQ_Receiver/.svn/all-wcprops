@@ -1,0 +1,65 @@
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver
+END
+Receiver_STM32PPM.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_STM32PPM.h
+END
+Receiver_STM32.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_STM32.h
+END
+Receiver_MEGA.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_MEGA.h
+END
+Receiver_HWPPM.h
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_HWPPM.h
+END
+Receiver_PPM.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_PPM.h
+END
+Receiver_328p.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_328p.h
+END
+Receiver_SBUS.h
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_SBUS.h
+END
+Receiver_APM.h
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_APM.h
+END
+Receiver_RemotePC.h
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver_RemotePC.h
+END
+Receiver.h
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/!svn/ver/958/trunk/AeroQuad/Libraries/AQ_Receiver/Receiver.h
+END

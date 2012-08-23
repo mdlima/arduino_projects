@@ -78,6 +78,8 @@ void initializeReceiverParam(int nbChannel = 6) {
   for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
     receiverSmoothFactor[channel] = 1; 
   }
+
+	receiverXmitFactor = 1.0;
 }
   
 int getRawChannelValue(byte channel);  
@@ -91,11 +93,25 @@ void readReceiver()
     receiverData[channel] = (receiverSlope[channel] * getRawChannelValue(channel)) + receiverOffset[channel];
     // Smooth the flight control receiver inputs
     receiverCommandSmooth[channel] = filterSmooth(receiverData[channel], receiverCommandSmooth[channel], receiverSmoothFactor[channel]);
+		// Serial.print("receiverCommandSmooth ");
+		// Serial.print(channel);
+		// Serial.print(": ");
+		// Serial.println(receiverCommandSmooth[channel]);
+		Serial.print(getRawChannelValue(channel));
+		Serial.print(", ");
   }
+	Serial.println();
   
   // Reduce receiver commands using receiverXmitFactor and center around 1500
   for (byte channel = XAXIS; channel < THROTTLE; channel++) {
-    receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
+		if (receiverXmitFactor != 1.0) 
+		{
+    	receiverCommand[channel] = ((receiverCommandSmooth[channel] - receiverZero[channel]) * receiverXmitFactor) + receiverZero[channel];
+		}
+		else
+		{
+			receiverCommand[channel] = receiverCommandSmooth[channel];
+		}
   }	
   // No xmitFactor reduction applied for throttle, mode and AUX
   for (byte channel = THROTTLE; channel < lastReceiverChannel; channel++) {

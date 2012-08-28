@@ -1,3 +1,4 @@
+
 /*
   AeroQuad v3.0.1 - February 2012
   www.AeroQuad.com
@@ -102,20 +103,20 @@ static void measurePulseWidthISR(uint8_t port, uint8_t pinoffset) {
         time = currentTime - pinData[pin].fallTime;
         pinData[pin].riseTime = currentTime;
         if ((time >= MINOFFWIDTH) && (time <= MAXOFFWIDTH))
-				{
+        {
           pinData[pin].edge = RISING_EDGE;
-				}
+        }
         else
-				{
-	          pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
-						Serial.println("IR");
-				}					
+        {
+            pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
+            Serial.println("IR");
+        }         
       }
       else {
         time = currentTime - pinData[pin].riseTime;
         pinData[pin].fallTime = currentTime;
         if ((time >= MINONWIDTH) && (time <= MAXONWIDTH) && (pinData[pin].edge == RISING_EDGE))
-				{
+        {
           pinData[pin].lastGoodWidth = time;
           pinData[pin].edge = FALLING_EDGE;
         }
@@ -133,7 +134,7 @@ SIGNAL(PCINT2_vect) {
 }
 
 // defines arduino pins used for receiver in arduino pin numbering schema
-static byte receiverPin[6] = {2, 5, 6, 4, 7, 8}; // pins used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
+static byte receiverPin[6] = {2, 3, 6, 4, 7, 8}; // pins used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
 
 
 void initializeReceiver(int nbChannel = 6) {

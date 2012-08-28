@@ -73,7 +73,7 @@ void initializeReceiverParam(int nbChannel = 6) {
     receiverSlope[channel] = 1;
   }	
   for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
-    receiverOffset[channel] = 1;
+    receiverOffset[channel] = 0;
   }
   for (byte channel = XAXIS; channel < lastReceiverChannel; channel++) {
     receiverSmoothFactor[channel] = 1; 
@@ -97,10 +97,10 @@ void readReceiver()
 		// Serial.print(channel);
 		// Serial.print(": ");
 		// Serial.println(receiverCommandSmooth[channel]);
-		Serial.print(getRawChannelValue(channel));
-		Serial.print(", ");
+		// Serial.print(getRawChannelValue(channel));
+		// Serial.print(", ");
   }
-	Serial.println();
+	// Serial.println();
   
   // Reduce receiver commands using receiverXmitFactor and center around 1500
   for (byte channel = XAXIS; channel < THROTTLE; channel++) {

@@ -326,52 +326,55 @@ void loop()
         // in any case its a good idea to at least flag it to the user somehow
         uint16_t unThrottleIntervention = 0;
 
-        if(unRotation != unRotationCenter)
-        {
-          uint32_t ulRotationWithGain = 0;
-          if(unRotation > unRotationCenter)
-          {
-            ulRotationWithGain = (long)(unRotation - unRotationCenter)*unThrottleSensitivity;
-            unThrottleIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,500); 
-          }
-          else 
-          {
-            ulRotationWithGain = (long)(unRotationCenter - unRotation)*unThrottleSensitivity;
-            unThrottleIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,500);
-          }
-        }
-
-        if(unThrottleIntervention > unThrottleInterventionPeak)
-        {
-          unThrottleInterventionPeak = unThrottleIntervention;
-        }
-        else
-        {
-          if(unThrottleInterventionPeak >= unThrottleDecay)
-          {
-            unThrottleInterventionPeak -= unThrottleDecay;
-          }
-          else
-          {
-            unThrottleInterventionPeak = 0;
-          }
-
-          if(unThrottleIntervention < unThrottleInterventionPeak)
-          {
-            unThrottleIntervention = unThrottleInterventionPeak;
-          }
-        }
-
-        if(unThrottleIn >= unThrottleCenter)
-        {
-          unThrottleIn = constrain(unThrottleIn - unThrottleIntervention,unThrottleCenter,unThrottleIn);
-        }
-        else
-        {
-          unThrottleIn = constrain(unThrottleIn + unThrottleIntervention,unThrottleMin,unThrottleCenter);
-        }
+//        if(unRotation != unRotationCenter)
+//        {
+//          uint32_t ulRotationWithGain = 0;
+//          if(unRotation > unRotationCenter)
+//          {
+//            ulRotationWithGain = (long)(unRotation - unRotationCenter)*unThrottleSensitivity;
+//            unThrottleIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,500); 
+//          }
+//          else 
+//          {
+//            ulRotationWithGain = (long)(unRotationCenter - unRotation)*unThrottleSensitivity;
+//            unThrottleIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,500);
+//          }
+//        }
+//
+//        if(unThrottleIntervention > unThrottleInterventionPeak)
+//        {
+//          unThrottleInterventionPeak = unThrottleIntervention;
+//        }
+//        else
+//        {
+//          if(unThrottleInterventionPeak >= unThrottleDecay)
+//          {
+//            unThrottleInterventionPeak -= unThrottleDecay;
+//          }
+//          else
+//          {
+//            unThrottleInterventionPeak = 0;
+//          }
+//
+//          if(unThrottleIntervention < unThrottleInterventionPeak)
+//          {
+//            unThrottleIntervention = unThrottleInterventionPeak;
+//          }
+//        }
+//
+//        if(unThrottleIn >= unThrottleCenter)
+//        {
+//          unThrottleIn = constrain(unThrottleIn - unThrottleIntervention,unThrottleCenter,unThrottleIn);
+//        }
+//        else
+//        {
+//          unThrottleIn = constrain(unThrottleIn + unThrottleIntervention,unThrottleMin,unThrottleCenter);
+//        }
 
         servoThrottle.writeMicroseconds(unThrottleIn);
+        
+        writeErrorToSerial(unThrottleCenter, unThrottleIn, ulLastThrottleIn, 0, 0, 0);
+
       }
     }
 
@@ -380,45 +383,48 @@ void loop()
       uint16_t unSteeringIntervention = 0;
       uint8_t bInvert = false;
 
-      if(unRotation != unRotationCenter)
-      {
-        uint32_t ulRotationWithGain = 0;
+//      if(unRotation != unRotationCenter)
+//      {
+//        uint32_t ulRotationWithGain = 0;
+//
+//        // note steering offers gain from 0 to 4
+//        uint16_t unInterventionMaxMinusInput = 0;
+//        if(unSteeringIn >= unSteeringCenter)
+//        {
+//          unInterventionMaxMinusInput = (unSteeringMax-unSteeringCenter) - (unSteeringIn - unSteeringCenter);
+//          unInterventionMaxMinusInput = constrain(unInterventionMaxMinusInput,0,unSteeringMax-unSteeringCenter);
+//        }
+//        else
+//        {
+//          unInterventionMaxMinusInput = (unSteeringCenter - unSteeringMin) - (unSteeringCenter - unSteeringIn);
+//          unInterventionMaxMinusInput = constrain(unInterventionMaxMinusInput,0,unSteeringCenter - unSteeringIn);
+//        }
+//
+//        if(unRotation > unRotationCenter)
+//        {
+//          bInvert = true; 
+//          ulRotationWithGain = (long)(unRotation - unRotationCenter)*unSteeringSensitivity;
+//          unSteeringIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,unInterventionMaxMinusInput); 
+//        }
+//        else 
+//        {
+//          ulRotationWithGain = (long)(unRotationCenter - unRotation)*unSteeringSensitivity;
+//          unSteeringIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,unInterventionMaxMinusInput);
+//        }
+//      }
+//
+//      if(bInvert)
+//      {
+//        unSteeringIn = constrain(unSteeringIn - unSteeringIntervention,unSteeringMin,unSteeringMax);
+//      }
+//      else
+//      {
+//        unSteeringIn = constrain(unSteeringIn + unSteeringIntervention,unSteeringMin,unSteeringMax);
+//      }
 
-        // note steering offers gain from 0 to 4
-        uint16_t unInterventionMaxMinusInput = 0;
-        if(unSteeringIn >= unSteeringCenter)
-        {
-          unInterventionMaxMinusInput = (unSteeringMax-unSteeringCenter) - (unSteeringIn - unSteeringCenter);
-          unInterventionMaxMinusInput = constrain(unInterventionMaxMinusInput,0,unSteeringMax-unSteeringCenter);
-        }
-        else
-        {
-          unInterventionMaxMinusInput = (unSteeringCenter - unSteeringMin) - (unSteeringCenter - unSteeringIn);
-          unInterventionMaxMinusInput = constrain(unInterventionMaxMinusInput,0,unSteeringCenter - unSteeringIn);
-        }
-
-        if(unRotation > unRotationCenter)
-        {
-          bInvert = true; 
-          ulRotationWithGain = (long)(unRotation - unRotationCenter)*unSteeringSensitivity;
-          unSteeringIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,unInterventionMaxMinusInput); 
-        }
-        else 
-        {
-          ulRotationWithGain = (long)(unRotationCenter - unRotation)*unSteeringSensitivity;
-          unSteeringIntervention = map(ulRotationWithGain,0,(long)unRotationCenter*128L,0,unInterventionMaxMinusInput);
-        }
-      }
-
-      if(bInvert)
-      {
-        unSteeringIn = constrain(unSteeringIn - unSteeringIntervention,unSteeringMin,unSteeringMax);
-      }
-      else
-      {
-        unSteeringIn = constrain(unSteeringIn + unSteeringIntervention,unSteeringMin,unSteeringMax);
-      }
       servoSteering.writeMicroseconds(unSteeringIn);
+      
+      writeErrorToSerial(0, 0, 0, unSteeringCenter, unSteeringIn, ulMillis);
     }
   }
   else if(gMode == MODE_ERROR)
@@ -727,4 +733,35 @@ void readAnalogSettings()
   unSteeringDecay = constrain(analogRead(STEERING_DECAY_PIN),1,500);
 }
 
+void writeErrorToSerial(uint32_t unCh1Center, uint32_t unCh1Value, uint32_t ulCh1UpdateMillis, uint32_t unCh2Center, uint32_t unCh2Value, uint32_t ulCh2UpdateMillis)
+{
+  static uint32_t ulLastErrorWrite = 0;
+  static uint32_t ulLastCh1Update = 0;
+  static uint32_t ulLastCh2Update = 0;
+  static uint32_t uCh1SqError;
+  static uint32_t uCh2SqError;
+
+  if( ulCh1UpdateMillis > ulLastCh1Update)
+  {
+    uCh1SqError = unCh1Center*unCh1Center + unCh1Value*unCh1Value - 2 * unCh1Center * unCh1Value; // Calculates quadratic error
+    ulLastCh1Update = ulCh1UpdateMillis;
+  }
+
+  if( ulCh2UpdateMillis > ulLastCh2Update)
+  {
+    uCh2SqError = unCh2Center*unCh2Center + unCh2Value*unCh2Value - 2 * unCh2Center * unCh2Value; // Calculates quadratic error
+    ulLastCh2Update = ulCh2UpdateMillis;
+  }
+
+  if( (ulLastCh1Update > ulLastErrorWrite) && (ulLastCh2Update > ulLastErrorWrite) )
+  {
+    Serial.print(uCh1SqError);
+    Serial.print(",");
+    Serial.println(uCh2SqError);
+    
+    ulLastErrorWrite = millis();
+  }
+  
+  
+}
 

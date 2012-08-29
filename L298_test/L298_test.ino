@@ -31,7 +31,34 @@ void setup()
 }
 void loop()
 {
+   digitalWrite(IN1,LOW); 
+ digitalWrite(IN2,HIGH);//setting motorA's directon
+ digitalWrite(IN3,HIGH);
+ digitalWrite(IN4,LOW);//setting motorB's directon
+
   analogWrite(ENA,255);//start driving motorA
   analogWrite(ENB,255);//start driving motorB
- 
+
+  delay(5000);
+
+  analogWrite(ENA,0);//start driving motorA
+  analogWrite(ENB,0);//start driving motorB
+
+  delay(2000);
+  
+   digitalWrite(IN1,HIGH); 
+ digitalWrite(IN2,LOW);//setting motorA's directon
+ digitalWrite(IN3,LOW);
+ digitalWrite(IN4,HIGH);//setting motorB's directon
+
+  analogWrite(ENA,255);//start driving motorA
+  analogWrite(ENB,255);//start driving motorB
+
+  delay(5000);
+
+  analogWrite(ENA,0);//start driving motorA
+  analogWrite(ENB,0);//start driving motorB
+
+  delay(2000);
+  
 }

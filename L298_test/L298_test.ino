@@ -10,9 +10,9 @@
 int ENA=A0;
 int IN1=A1;
 int IN2=A2;
-int ENB=A3;
-int IN3=A4;
-int IN4=A5;
+int IN3=A3;
+int IN4=A4;
+int ENB=A5;
 
 void setup()
 {

@@ -109,7 +109,7 @@ static void measurePulseWidthISR(uint8_t port, uint8_t pinoffset) {
         else
         {
             pinData[pin].edge = FALLING_EDGE; // invalid rising edge detected
-            Serial.println("IR");
+            // Serial.println("IR");
         }         
       }
       else {
@@ -134,7 +134,7 @@ SIGNAL(PCINT2_vect) {
 }
 
 // defines arduino pins used for receiver in arduino pin numbering schema
-static byte receiverPin[6] = {2, 3, 6, 4, 7, 8}; // pins used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
+static byte receiverPin[6] = {2, 5, 6, 4, 7, 8}; // pins used for XAXIS, YAXIS, ZAXIS, THROTTLE, MODE, AUX
 
 
 void initializeReceiver(int nbChannel = 6) {
